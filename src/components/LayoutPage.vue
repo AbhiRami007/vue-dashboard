@@ -34,6 +34,10 @@
           <i class="fa-solid fa-user stickybar-icon" aria-hidden="true"></i>All
           Users</router-link
         >
+        <router-link to="/chart" class="sidebar-link" @click="toggleSidebar">
+          <i class="fa-solid fa-chart-simple stickybar-icon" aria-hidden="true"></i>
+          Data Chart</router-link
+        >
         <router-link
           to="/logout"
           class="sidebar-link logout"

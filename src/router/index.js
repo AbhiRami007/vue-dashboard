@@ -1,5 +1,6 @@
 import LoginPage from "@/auth/LoginPage.vue";
 import RegisterPage from "@/auth/RegisterPage.vue";
+import ChartPage from "@/components/ChartPage.vue";
 import DashboardPage from "@/components/DashboardPage.vue";
 import LayoutPage from "@/components/LayoutPage.vue";
 import NewsData from "@/components/NewsData.vue";
@@ -47,6 +48,11 @@ const routes = [
         path: "space",
         name: "SpaceStationData",
         component: SpaceStationData,
+      },
+      {
+        path: "chart",
+        name: "ChartPage",
+        component: ChartPage,
       },
     ],
   },
