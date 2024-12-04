@@ -1,4 +1,5 @@
 import LoginPage from "@/auth/LoginPage.vue";
+import LogoutPage from "@/auth/LogoutPage.vue";
 import RegisterPage from "@/auth/RegisterPage.vue";
 import ChartPage from "@/components/ChartPage.vue";
 import DashboardPage from "@/components/DashboardPage.vue";
@@ -53,6 +54,11 @@ const routes = [
         path: "chart",
         name: "ChartPage",
         component: ChartPage,
+      },
+      {
+        path: "logout",
+        name: "Logout",
+        component: LogoutPage,
       },
     ],
   },
