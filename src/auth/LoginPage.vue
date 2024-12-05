@@ -7,7 +7,7 @@
           type="email"
           v-model="email"
           placeholder="Email"
-         :class="emailError ? 'input-field input-error' : 'input-field'"
+          :class="emailError ? 'input-field input-error' : 'input-field'"
         />
         <p v-if="emailError" class="error-text">{{ emailError }}</p>
       </div>
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import { ref, onMounted} from "vue";
-import { auth } from "../firebase"; // Import your Firebase Auth instance
+import { ref, onMounted } from "vue";
+import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
 

@@ -1,109 +1,120 @@
 <template>
-    <div class="dashboard-container">
-
-      <div class="banner">
-        <div class="banner-left">
-          <div class="bannertext">
-            <h2 class="title">
-              {{ userData ? `Hello, ${userData.firstName} ${userData.lastName}!` : "Hello!" }}
-            </h2>
-            <h2 class="subtitle">Welcome to your Dashboard..</h2>
-          </div>
-        </div>
-      </div>
-
-      <div className="widgets-container">
-        <div className="flex-1">
-          <div className="widget" id="widget-1">
-            <UserProfile />
-          </div>
-          <div className="widget" id="widget-3">
-            <WeatherData showLimited={true} />
-          </div>
-        </div>
-        <div className="flex-2">
-          <div className="widget" id="widget-2">
-            <UserList showLimited={true} />
-          </div>
-          <div className="widget" id="widget-4">
-            <NewsData showLimited={true} />
-          </div>
-          <div className="widget" id="widget-5">
-            <SpaceStationData showLimited={true} />
-          </div>
+  <div class="dashboard-container">
+    <div class="banner">
+      <div class="banner-left">
+        <div class="bannertext">
+          <h2 class="title">
+            {{
+              userData
+                ? `Hello, ${userData.firstName} ${userData.lastName}!`
+                : "Hello!"
+            }}
+          </h2>
+          <h2 class="subtitle">Welcome to your Dashboard..</h2>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import { ref, onMounted } from "vue";
-  import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
-  import UserProfile from "./UserProfile.vue";
+
+    <div class="widgets-container">
+      <div class="flex-1">
+        <div class="widget" id="widget-1">
+          <UserProfile />
+        </div>
+        <div class="widget" id="widget-3">
+          <WeatherData showLimited="{true}" />
+        </div>
+      </div>
+      <div class="flex-2">
+        <div class="widget" id="widget-2">
+          <UserList showLimited="{true}" />
+        </div>
+        <div class="widget" id="widget-4">
+          <NewsData showLimited="{true}" />
+        </div>
+        <div class="widget" id="widget-5">
+          <SpaceStationData showLimited="{true}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted } from "vue";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import UserProfile from "./UserProfile.vue";
 import NewsData from "./NewsData.vue";
 import WeatherData from "./WeatherData.vue";
 import UserList from "./UserList.vue";
 import SpaceStationData from "./SpaceStationData.vue";
-  
-  export default {
-    name: "DashboardPage",
-    components: {
-      UserProfile,
-      NewsData,
-      WeatherData,
-      UserList,
-      SpaceStationData
-    },
-    setup() {
-      const user = ref(null);
-      const userData = ref(null);
-      const loading = ref(true);
-  
-      const db = getFirestore();
-  
-      onMounted(async () => {
-        const storedUser = localStorage.getItem("user");
-  
-        if (storedUser) {
-          user.value = JSON.parse(storedUser);
-  
-          const fetchUserData = async () => {
-            try {
-              const userQuery = query(
-                collection(db, "users"),
-                where("email", "==", user.value.email)
-              );
-              const querySnapshot = await getDocs(userQuery);
-              if (!querySnapshot.empty) {
-                userData.value = querySnapshot.docs[0].data();
-              } else {
-                console.log("No user data found in Firestore.");
-              }
-            } catch (error) {
-              console.error("Error fetching user data:", error);
-            } finally {
-              loading.value = false;
+
+export default {
+  name: "DashboardPage",
+  components: {
+    UserProfile,
+    NewsData,
+    WeatherData,
+    UserList,
+    SpaceStationData,
+  },
+  setup() {
+    const user = ref(null);
+    const userData = ref(null);
+    const loading = ref(true);
+
+    const db = getFirestore();
+
+    onMounted(async () => {
+      const storedUser = localStorage.getItem("user");
+
+      if (storedUser) {
+        user.value = JSON.parse(storedUser);
+
+        const fetchUserData = async () => {
+          try {
+            const userQuery = query(
+              collection(db, "users"),
+              where("email", "==", user.value.email)
+            );
+            const querySnapshot = await getDocs(userQuery);
+            if (!querySnapshot.empty) {
+              userData.value = querySnapshot.docs[0].data();
+            } else {
+              console.log("No user data found in Firestore.");
             }
-          };
-  
-          fetchUserData();
-        } else {
-          loading.value = false;
-        }
-      });
-  
-      return {
-        userData,
-        loading,
-      };
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .dashboard-container {
-  padding-top: 30px;
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          } finally {
+            loading.value = false;
+          }
+        };
+
+        fetchUserData();
+      } else {
+        loading.value = false;
+      }
+    });
+
+    return {
+      userData,
+      loading,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.dashboard-container {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between widgets */
 }
 
 .title {
@@ -116,7 +127,6 @@ import SpaceStationData from "./SpaceStationData.vue";
   font-size: 18px;
   font-weight: 400;
 }
-
 
 .avatar {
   border-radius: 50%;
@@ -182,9 +192,6 @@ import SpaceStationData from "./SpaceStationData.vue";
 }
 
 .widgets-container {
-  display: flex;
-  flex-direction: column; /* Default to column for smaller screens */
-  gap: 20px; /* Space between widgets */
 }
 
 .widget {
@@ -325,6 +332,9 @@ h3 {
     align-items: center;
     width: 100%; /* Full width */
   }
+  .dashboard-container {
+    margin-right: 30px;
+  }
 
   .avatar {
     width: 60px;
@@ -399,6 +409,4 @@ h3 {
     font-size: 18px; /* Adjust widget subtitle size */
   }
 }
-
-  </style>
-  
+</style>

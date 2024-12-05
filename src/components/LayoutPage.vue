@@ -16,7 +16,7 @@
       <div class="sidebar-content">
         <router-link to="/dashboard" class="sidebar-link" @click="toggleSidebar"
           ><i class="fa-solid fa-house stickybar-icon" aria-hidden="true"></i
-          >Home</router-link
+          >Dashboard</router-link
         >
         <router-link to="/weather" class="sidebar-link" @click="toggleSidebar">
           <i class="fa-solid fa-cloud stickybar-icon" aria-hidden="true"></i
@@ -35,7 +35,10 @@
           Users</router-link
         >
         <router-link to="/chart" class="sidebar-link" @click="toggleSidebar">
-          <i class="fa-solid fa-chart-simple stickybar-icon" aria-hidden="true"></i>
+          <i
+            class="fa-solid fa-chart-simple stickybar-icon"
+            aria-hidden="true"
+          ></i>
           Data Chart</router-link
         >
         <router-link
@@ -112,6 +115,12 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  text-align: left;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 300;
 }
 
 .sidebar-link {
@@ -129,18 +138,23 @@ export default {
 
 .sidebar-link .icon {
   margin-right: 10px;
-  font-size: 1.2em; /* Adjust size as needed */
+  font-size: 1.2em;
 }
+
+/* Sticky Navigation Bar */
 
 .stickybar {
   position: fixed;
   top: 0;
   width: 100%;
   left: -5px;
+  height: 80px;
   background-color: #0471f6;
   color: white;
-  padding: 10px 20px;
+  padding: 0px 20px;
   z-index: 999;
+  align-items: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .stickybarContent {
@@ -155,7 +169,55 @@ export default {
 }
 
 .content {
-  margin-top: 50px;
+  /* margin-top: 80px; Matches sticky bar height */
   padding: 20px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex-direction: column; /* Stack items vertically */
+  min-height: calc(100vh - 80px); /* Full height minus sticky bar */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stickybar {
+    padding: 0 20px;
+    align-items: center;
+    height: 60px;
+  }
+
+  .stickybarContent h1 {
+    font-size: 24px;
+  }
+
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar-link {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stickybarContent h1 {
+    font-size: 20px;
+  }
+
+  .stickybar {
+    padding: 0 20px;
+    align-items: center;
+    height: 60px;
+  }
+
+  .sidebar {
+    width: 180px;
+  }
+
+  .sidebar-link {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
 }
 </style>

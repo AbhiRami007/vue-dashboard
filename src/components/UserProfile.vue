@@ -1,127 +1,85 @@
 <template>
-    <div>
-      <h1>Profile</h1>
-      <div class="user-profile-widget">
-        <img
-          :src="userData ? getAvatarUrl() : 'default-avatar-url'" 
-          alt="Profile"
-          class="avatar"
-        />
-        <div>
-          <h2>{{ userData ? `${userData.firstName} ${userData.lastName}` : '' }}</h2>
-          <p>Email: {{ user ? user.email : '' }}</p>
-        </div>
+  <div>
+    <h1>Profile</h1>
+    <div class="user-profile-widget">
+      <img
+        :src="userData ? getAvatarUrl() : 'default-avatar-url'"
+        alt="Profile"
+        class="avatar"
+      />
+      <div>
+        <h2>
+          {{ userData ? `${userData.firstName} ${userData.lastName}` : "" }}
+        </h2>
+        <p>Email: {{ user ? user.email : "" }}</p>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import { ref, onMounted } from "vue";
-  import { collection, query, where, getDocs } from "firebase/firestore";
-  
-  // Initialize Firebase Firestore (Ensure Firebase is set up)
-  import { db } from "../firebase";
-  
-  export default {
-    name: "UserProfile",
-    setup() {
-      const user = ref(null);
-      const userData = ref(null);
-      const loading = ref(true);
-  
-      // Fetch user data on mount
-      onMounted(async () => {
-        const storedUser = localStorage.getItem("user");
-  
-        if (storedUser) {
-          user.value = JSON.parse(storedUser);
-  
-          // Fetch user data from Firestore based on email
-          const fetchUserData = async () => {
-            try {
-              const userQuery = query(
-                collection(db, "users"),
-                where("email", "==", user.value.email)
-              );
-              const querySnapshot = await getDocs(userQuery);
-              if (!querySnapshot.empty) {
-                userData.value = querySnapshot.docs[0].data();
-              } else {
-                console.log("No user data found in Firestore.");
-              }
-            } catch (error) {
-              console.error("Error fetching user data:", error);
-            } finally {
-              loading.value = false;
+  </div>
+</template>
+
+<script>
+import { ref, onMounted } from "vue";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+// Initialize Firebase Firestore (Ensure Firebase is set up)
+import { db } from "../firebase";
+
+export default {
+  name: "UserProfile",
+  setup() {
+    const user = ref(null);
+    const userData = ref(null);
+    const loading = ref(true);
+
+    // Fetch user data on mount
+    onMounted(async () => {
+      const storedUser = localStorage.getItem("user");
+
+      if (storedUser) {
+        user.value = JSON.parse(storedUser);
+
+        // Fetch user data from Firestore based on email
+        const fetchUserData = async () => {
+          try {
+            const userQuery = query(
+              collection(db, "users"),
+              where("email", "==", user.value.email)
+            );
+            const querySnapshot = await getDocs(userQuery);
+            if (!querySnapshot.empty) {
+              userData.value = querySnapshot.docs[0].data();
+            } else {
+              console.log("No user data found in Firestore.");
             }
-          };
-  
-          fetchUserData();
-        } else {
-          loading.value = false;
-        }
-      });
-  
-      // Function to return a random avatar URL or default
-      const getAvatarUrl = () => {
-        return "https://xsgames.co/randomusers/avatar.php?g=male";
-      };
-  
-      return {
-        user,
-        userData,
-        loading,
-        getAvatarUrl,
-      };
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .dashboard-container {
-  padding: 30px;
-}
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          } finally {
+            loading.value = false;
+          }
+        };
 
-.title {
-  text-align: left;
-  font-size: 24px; /* Larger title for better visibility */
-}
+        fetchUserData();
+      } else {
+        loading.value = false;
+      }
+    });
 
-.subtitle {
-  text-align: left;
-  font-size: 18px;
-  font-weight: 400;
-}
+    // Function to return a random avatar URL or default
+    const getAvatarUrl = () => {
+      return "https://xsgames.co/randomusers/avatar.php?g=male";
+    };
 
-.stickybar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0471f6;
-  padding: 0 30px;
-  height: 60px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
+    return {
+      user,
+      userData,
+      loading,
+      getAvatarUrl,
+    };
+  },
+};
+</script>
 
-.stickybarContent {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  color: #ffffff;
-}
-
-.stickybar p {
-  font-size: 12px;
-}
-
-.stickybar h1 {
-  font-size: 20px;
-}
-
-.stickybar-icon {
-  font-size: 20px;
-}
-
+<style scoped>
 .avatar {
   border-radius: 50%;
   width: 100px;
@@ -406,5 +364,4 @@ h3 {
     font-size: 18px; /* Adjust widget subtitle size */
   }
 }
-  </style>
-  
+</style>
