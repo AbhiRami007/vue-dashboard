@@ -172,7 +172,7 @@ export default {
   padding: 12px;
   margin-bottom: 50px;
   font-size: 1.1em;
-  background-color: #0471f6;
+  background-color: #f60404;
   color: white;
   border: none;
   border-radius: 8px;
@@ -199,7 +199,7 @@ export default {
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 1.2em;
-  color: #0471f6;
+  color: #f60404;
 }
 
 .password-toggle:hover {
@@ -208,7 +208,7 @@ export default {
 
 /* Link styling */
 a {
-  color: #0471f6;
+  color: #f60404;
   text-decoration: none;
   transition: color 0.2s ease;
 }

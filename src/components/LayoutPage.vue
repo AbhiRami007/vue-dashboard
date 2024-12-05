@@ -184,6 +184,7 @@ h1 {
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   flex-direction: column; /* Stack items vertically */
+  background-color: #cccccc;
   min-height: calc(100vh - 80px); /* Full height minus sticky bar */
 }
 

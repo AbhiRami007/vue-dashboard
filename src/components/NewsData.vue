@@ -226,9 +226,9 @@ h3 {
 
 .widget h1 {
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 500;
   padding: 0 0 10px;
-  color: #f66e04;
+  color: #111010;
 }
 
 .widget h2 {
@@ -297,8 +297,8 @@ h3 {
 .news-data-container {
   margin-top: 2rem;
   background-color: #f3f3f3;
-
-  width: 100%;
+  border-radius: 5px;
+  width: 80%;
 }
 
 .userlist-container-main,

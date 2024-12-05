@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  color: #1c1c1d;
+}
 .avatar {
   border-radius: 50%;
   width: 100px;
@@ -192,16 +195,16 @@ h3 {
 
 .widget h1 {
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 500;
   padding: 0 0 10px;
-  color: #f66e04;
+  color: #0b0b0b;
 }
 
 .widget h2 {
   font-size: 30px;
   font-weight: 800;
   padding: 0;
-  color: #0471f6;
+  color: #f60404;
 }
 
 .user-list-text {
@@ -231,7 +234,7 @@ h3 {
 .user-details h4 {
   margin: 0;
   font-size: 14px;
-  color: #007bff;
+  color: #000000;
 }
 
 .user-details p {

@@ -132,6 +132,7 @@ export default {
 .weather-container {
   background-color: #f3f3f3;
   padding: 2rem;
+  border-radius: 10px;
   width: 10%; /* Adjust width to make it more responsive */
   max-width: 900; /* Set a max width to avoid stretching on larger screens */
 }
@@ -142,10 +143,11 @@ export default {
   flex-wrap: wrap; /* Allows content to wrap on smaller screens */
 }
 
-.weather-head > h1 {
+.weather-head h1 {
   margin-right: 10px; /* Adjust for small screens */
-  color: #f66e04;
-  font-size: 1.8rem; /* Adjust font size for better scaling */
+  color: #010101;
+  font-size: 22px; /* Adjust font size for better scaling */
+  font-weight: 500;
 }
 
 .widgetInput {
@@ -166,7 +168,7 @@ export default {
   text-decoration: none;
   color: #fff;
   padding: 8px 12px;
-  background-color: #0471f6;
+  background-color: #f60404;
   border-radius: 5px;
   text-align: center;
   display: inline-block;
@@ -189,9 +191,10 @@ export default {
 .widgetcard {
   background-color: #fff;
   border-radius: 5px;
-  padding: 5px;
+  padding: 20px;
   margin-top: 10px;
-  width: 100%; /* Full width */
+
+  text-align: left;
 }
 
 .widgetcardtwo {
@@ -212,7 +215,7 @@ export default {
   }
 
   .weather-head > h1 {
-    font-size: 1.5rem; /* Smaller heading on mobile */
+    /* Smaller heading on mobile */
     margin-right: 0;
     margin-bottom: 1rem; /* Add margin for spacing */
   }
@@ -254,7 +257,6 @@ export default {
     margin-left: 50px;
   }
   .weather-head > h1 {
-    font-size: 1.6rem;
     margin-right: 10px;
   }
 
@@ -273,7 +275,6 @@ export default {
   }
 
   .weather-head > h1 {
-    font-size: 1.8rem;
   }
 }
 </style>

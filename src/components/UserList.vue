@@ -1,70 +1,81 @@
 <template>
-    <div :class="!showLimited ? 'userlist-container-main' : ''">
-      <h1>User List</h1>
-  
-      <div class="user-list-container">
-        <ul class="user-list">
-          <!-- Show only the first 10 users if showLimited is true -->
-          <li v-for="(user, index) in users.slice(0, showLimited ? 10 : users.length)" :key="index" class="user-card">
-            <div class="user-details">
-              <h4>Name: {{ user.firstName }} {{ user.lastName }}</h4>
-              <p>Email: {{ user.email }}</p>
-            </div>
-          </li>
-        </ul>
-  
-        <!-- Display 'View More' link if showLimited is true and there are more than 10 users -->
-        <router-link v-if="showLimited && users.length > 10" to="/users" class="view-more-link">
-          View More
-        </router-link>
-      </div>
+  <div :class="!showLimited ? 'userlist-container-main' : ''">
+    <h1>User List</h1>
+
+    <div class="user-list-container">
+      <ul class="user-list">
+        <!-- Show only the first 10 users if showLimited is true -->
+        <li
+          v-for="(user, index) in users.slice(
+            0,
+            showLimited ? 10 : users.length
+          )"
+          :key="index"
+          class="user-card"
+        >
+          <div class="user-details">
+            <h4>Name: {{ user.firstName }} {{ user.lastName }}</h4>
+            <p>Email: {{ user.email }}</p>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Display 'View More' link if showLimited is true and there are more than 10 users -->
+      <router-link
+        v-if="showLimited && users.length > 10"
+        to="/users"
+        class="view-more-link"
+      >
+        View More
+      </router-link>
     </div>
-  </template>
-  
-  <script>
-  import { db } from "../firebase"; // Importing db
-  import { collection, query, getDocs } from "firebase/firestore"; // Importing collection, query, and getdocs
-  
-  export default {
-    name: "UserList",
-    props: {
-      showLimited: {
-        type: Boolean,
-        default: false,
-      },
+  </div>
+</template>
+
+<script>
+import { db } from "../firebase"; // Importing db
+import { collection, query, getDocs } from "firebase/firestore"; // Importing collection, query, and getdocs
+
+export default {
+  name: "UserList",
+  props: {
+    showLimited: {
+      type: Boolean,
+      default: false,
     },
-    data() {
-      return {
-        users: [], // Holds the list of users fetched from Firestore
-      };
-    },
-    methods: {
-      // Fetch all user data from Firestore
-      async fetchUsers() {
-        try {
-          const userQuery = query(collection(db, "users"));
-          const querySnapshot = await getDocs(userQuery);
-  
-          if (!querySnapshot.empty) {
-            const userList = querySnapshot.docs.map((doc) => doc.data());
-            this.users = userList;
-          } else {
-            console.log("No user data found in Firestore.");
-          }
-        } catch (error) {
-          console.log("Error fetching users:", error);
+  },
+  data() {
+    return {
+      users: [], // Holds the list of users fetched from Firestore
+    };
+  },
+  methods: {
+    // Fetch all user data from Firestore
+    async fetchUsers() {
+      try {
+        const userQuery = query(collection(db, "users"));
+        const querySnapshot = await getDocs(userQuery);
+
+        if (!querySnapshot.empty) {
+          const userList = querySnapshot.docs.map((doc) => doc.data());
+          this.users = userList;
+        } else {
+          console.log("No user data found in Firestore.");
         }
-      },
+      } catch (error) {
+        console.log("Error fetching users:", error);
+      }
     },
-    mounted() {
-      // Fetch users when the component is mounted
-      this.fetchUsers();
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .dashboard-container {
+  },
+  mounted() {
+    // Fetch users when the component is mounted
+    this.fetchUsers();
+  },
+};
+</script>
+
+<style scoped>
+.dashboard-container {
   padding: 30px;
 }
 
@@ -220,9 +231,9 @@ h3 {
 
 .widget h1 {
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 500;
   padding: 0 0 10px;
-  color: #f66e04;
+  color: #000000;
 }
 
 .widget h2 {
@@ -249,6 +260,7 @@ h3 {
   margin: 10px 0;
   display: flex;
   align-items: center;
+  text-align: left;
   transition: transform 0.2s;
 }
 
@@ -259,7 +271,7 @@ h3 {
 .user-details h4 {
   margin: 0;
   font-size: 14px;
-  color: #007bff;
+  color: #0e0f0f;
 }
 
 .user-details p {
@@ -296,12 +308,12 @@ h3 {
   background-color: #f3f3f3;
   padding: 2rem;
   width: fit-content;
-  margin-left: 20%;
+  border-radius: 5px;
 }
 
 .userlist-container-main,
 .space-data-container {
-  width: 50%; /* Full width */
+  width: 80%; /* Full width */
 }
 
 .news-data-container > h1,
@@ -392,6 +404,4 @@ h3 {
     font-size: 18px; /* Adjust widget subtitle size */
   }
 }
-
-  </style>
-  
+</style>

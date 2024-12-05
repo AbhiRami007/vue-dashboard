@@ -225,11 +225,12 @@ export default {
 
 .widgetcardSpace {
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
   align-items: center;
   text-align: left;
   margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .widgetcardSpace h3,
@@ -257,9 +258,9 @@ h3 {
 
 .widget h1 {
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 500;
   padding: 0 0 10px;
-  color: #f66e04;
+  color: #000000;
 }
 
 .widget h2 {
@@ -331,12 +332,13 @@ h3 {
   margin-top: 2rem;
   background-color: #f3f3f3;
   padding: 2rem;
-  width: 100%;
+  width: 80%;
+  border-radius: 5px;
 }
 
 .userlist-container-main,
 .space-data-container {
-  width: 50%; /* Full width */
+  width: 80%; /* Full width */
 }
 
 .news-data-container > h1,

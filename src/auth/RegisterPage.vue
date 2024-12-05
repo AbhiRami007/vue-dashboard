@@ -1,185 +1,185 @@
 <template>
-    <div class="register-container">
-      <h2>Register</h2>
-      <form @submit.prevent="handleSubmit">
-        <!-- First Name Input -->
-        <div class="input-container">
-          <input
-            type="text"
-            v-model="firstName"
-            @input="clearError('firstNameError')"
-            placeholder="First Name"
-            :class="firstNameError ? 'input-field input-error' : 'input-field'"
-          />
-          <p v-if="firstNameError" class="error-text">{{ firstNameError }}</p>
-        </div>
-  
-        <!-- Last Name Input -->
-        <div class="input-container">
-          <input
-            type="text"
-            v-model="lastName"
-            @input="clearError('lastNameError')"
-            placeholder="Last Name"
-            :class="lastNameError ? 'input-field input-error' : 'input-field'"
-          />
-          <p v-if="lastNameError" class="error-text">{{ lastNameError }}</p>
-        </div>
-  
-        <!-- Email Input -->
-        <div class="input-container">
-          <input
-            type="email"
-            v-model="email"
-            @input="clearError('emailError')"
-            placeholder="Email"
-            :class="emailError ? 'input-field input-error' : 'input-field'"
-          />
-          <p v-if="emailError" class="error-text">{{ emailError }}</p>
-        </div>
-  
-        <!-- Password Input -->
-        <div class="input-container">
-          <input
-            :type="showPassword ? 'text' : 'password'"
-            v-model="password"
-            @input="clearError('passwordError')"
-            placeholder="Password"
-            :class="passwordError ? 'input-field input-error' : 'input-field'"
-          />
-          <span class="password-toggle" @click="togglePasswordVisibility">
-            <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-          </span>
-          <p v-if="passwordError" class="error-text">{{ passwordError }}</p>
-        </div>
-  
-        <!-- Submit Button -->
-        <button type="submit" class="submit-button">Register</button>
-      </form>
-  
-      <!-- Link to Login -->
-      <div class="login">
-        Already registered? <router-link to="/">Login</router-link>
+  <div class="register-container">
+    <h2>Register</h2>
+    <form @submit.prevent="handleSubmit">
+      <!-- First Name Input -->
+      <div class="input-container">
+        <input
+          type="text"
+          v-model="firstName"
+          @input="clearError('firstNameError')"
+          placeholder="First Name"
+          :class="firstNameError ? 'input-field input-error' : 'input-field'"
+        />
+        <p v-if="firstNameError" class="error-text">{{ firstNameError }}</p>
       </div>
+
+      <!-- Last Name Input -->
+      <div class="input-container">
+        <input
+          type="text"
+          v-model="lastName"
+          @input="clearError('lastNameError')"
+          placeholder="Last Name"
+          :class="lastNameError ? 'input-field input-error' : 'input-field'"
+        />
+        <p v-if="lastNameError" class="error-text">{{ lastNameError }}</p>
+      </div>
+
+      <!-- Email Input -->
+      <div class="input-container">
+        <input
+          type="email"
+          v-model="email"
+          @input="clearError('emailError')"
+          placeholder="Email"
+          :class="emailError ? 'input-field input-error' : 'input-field'"
+        />
+        <p v-if="emailError" class="error-text">{{ emailError }}</p>
+      </div>
+
+      <!-- Password Input -->
+      <div class="input-container">
+        <input
+          :type="showPassword ? 'text' : 'password'"
+          v-model="password"
+          @input="clearError('passwordError')"
+          placeholder="Password"
+          :class="passwordError ? 'input-field input-error' : 'input-field'"
+        />
+        <span class="password-toggle" @click="togglePasswordVisibility">
+          <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+        </span>
+        <p v-if="passwordError" class="error-text">{{ passwordError }}</p>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="submit-button">Register</button>
+    </form>
+
+    <!-- Link to Login -->
+    <div class="login">
+      Already registered? <router-link to="/">Login</router-link>
     </div>
-  </template>
-  
-  <script>
-  import { ref } from "vue";
-  import { auth, db } from "../firebase"; // Firebase setup
-  import { collection, addDoc } from "firebase/firestore";
-  import { createUserWithEmailAndPassword } from "firebase/auth";
-  import { useRouter } from "vue-router";
-  
-  export default {
-    name: "RegisterPage",
-    setup() {
-      const firstName = ref("");
-      const lastName = ref("");
-      const email = ref("");
-      const password = ref("");
-      const showPassword = ref(false);
-      const firstNameError = ref("");
-      const lastNameError = ref("");
-      const emailError = ref("");
-      const passwordError = ref("");
-      const router = useRouter();
-  
-      const clearError = (field) => {
-        if (field === "firstNameError") firstNameError.value = "";
-        if (field === "lastNameError") lastNameError.value = "";
-        if (field === "emailError") emailError.value = "";
-        if (field === "passwordError") passwordError.value = "";
-      };
-  
-      const togglePasswordVisibility = () => {
-        showPassword.value = !showPassword.value;
-      };
-  
-      const validateInputs = () => {
-        let isValid = true;
-  
-        if (!firstName.value) {
-          firstNameError.value = "First name is required.";
-          isValid = false;
+  </div>
+</template>
+
+<script>
+import { ref } from "vue";
+import { auth, db } from "../firebase"; // Firebase setup
+import { collection, addDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "vue-router";
+
+export default {
+  name: "RegisterPage",
+  setup() {
+    const firstName = ref("");
+    const lastName = ref("");
+    const email = ref("");
+    const password = ref("");
+    const showPassword = ref(false);
+    const firstNameError = ref("");
+    const lastNameError = ref("");
+    const emailError = ref("");
+    const passwordError = ref("");
+    const router = useRouter();
+
+    const clearError = (field) => {
+      if (field === "firstNameError") firstNameError.value = "";
+      if (field === "lastNameError") lastNameError.value = "";
+      if (field === "emailError") emailError.value = "";
+      if (field === "passwordError") passwordError.value = "";
+    };
+
+    const togglePasswordVisibility = () => {
+      showPassword.value = !showPassword.value;
+    };
+
+    const validateInputs = () => {
+      let isValid = true;
+
+      if (!firstName.value) {
+        firstNameError.value = "First name is required.";
+        isValid = false;
+      }
+
+      if (!lastName.value) {
+        lastNameError.value = "Last name is required.";
+        isValid = false;
+      }
+
+      if (!email.value) {
+        emailError.value = "Email is required.";
+        isValid = false;
+      } else if (!/\S+@\S+\.\S+/.test(email.value)) {
+        emailError.value = "Please enter a valid email.";
+        isValid = false;
+      }
+
+      if (!password.value) {
+        passwordError.value = "Password is required.";
+        isValid = false;
+      } else if (password.value.length < 6) {
+        passwordError.value = "Password must be at least 6 characters long.";
+        isValid = false;
+      }
+
+      return isValid;
+    };
+
+    const handleSubmit = async () => {
+      if (!validateInputs()) return;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email.value,
+          password.value
+        );
+        const user = userCredential.user;
+
+        // Save user data to Firestore
+        await addDoc(collection(db, "users"), {
+          uid: user.uid,
+          email: user.email,
+          firstName: firstName.value,
+          lastName: lastName.value,
+        });
+
+        alert("User Registered Successfully!");
+        router.push("/");
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          alert("This email is already in use.");
+        } else if (error.code === "auth/weak-password") {
+          alert("The password is too weak.");
+        } else {
+          alert(error.message);
         }
-  
-        if (!lastName.value) {
-          lastNameError.value = "Last name is required.";
-          isValid = false;
-        }
-  
-        if (!email.value) {
-          emailError.value = "Email is required.";
-          isValid = false;
-        } else if (!/\S+@\S+\.\S+/.test(email.value)) {
-          emailError.value = "Please enter a valid email.";
-          isValid = false;
-        }
-  
-        if (!password.value) {
-          passwordError.value = "Password is required.";
-          isValid = false;
-        } else if (password.value.length < 6) {
-          passwordError.value = "Password must be at least 6 characters long.";
-          isValid = false;
-        }
-  
-        return isValid;
-      };
-  
-      const handleSubmit = async () => {
-        if (!validateInputs()) return;
-  
-        try {
-          const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email.value,
-            password.value
-          );
-          const user = userCredential.user;
-  
-          // Save user data to Firestore
-          await addDoc(collection(db, "users"), {
-            uid: user.uid,
-            email: user.email,
-            firstName: firstName.value,
-            lastName: lastName.value,
-          });
-  
-          alert("User Registered Successfully!");
-          router.push("/");
-        } catch (error) {
-          if (error.code === "auth/email-already-in-use") {
-            alert("This email is already in use.");
-          } else if (error.code === "auth/weak-password") {
-            alert("The password is too weak.");
-          } else {
-            alert(error.message);
-          }
-        }
-      };
-  
-      return {
-        firstName,
-        lastName,
-        email,
-        password,
-        showPassword,
-        firstNameError,
-        lastNameError,
-        emailError,
-        passwordError,
-        togglePasswordVisibility,
-        handleSubmit,
-        clearError,
-      };
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .App {
+      }
+    };
+
+    return {
+      firstName,
+      lastName,
+      email,
+      password,
+      showPassword,
+      firstNameError,
+      lastNameError,
+      emailError,
+      passwordError,
+      togglePasswordVisibility,
+      handleSubmit,
+      clearError,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.App {
   text-align: center;
 }
 
@@ -234,7 +234,7 @@
   padding: 12px;
   margin-bottom: 50px;
   font-size: 1.1em;
-  background-color: #0471f6;
+  background-color: #f60404;
   color: white;
   border: none;
   border-radius: 8px;
@@ -261,7 +261,7 @@
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 1.2em;
-  color: #0471f6;
+  color: #f60404;
 }
 
 .password-toggle:hover {
@@ -270,7 +270,7 @@
 
 /* Link styling */
 a {
-  color: #0471f6;
+  color: #f60404;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -345,6 +345,4 @@ a:hover {
     font-size: 1.3em;
   }
 }
-
-  </style>
-  
+</style>

@@ -97,11 +97,14 @@ export default {
   margin-top: 2rem;
   background-color: #f3f3f3;
   padding: 2rem;
-  width: 100%;
+  width: 80%;
+  border-radius: 5px;
 }
 .data-container > h1 {
   color: #f66e04;
   text-align: center;
+  font-size: 24px;
+  font-weight: 500;
 }
 .chart {
   padding: 20px;
@@ -118,6 +121,7 @@ div {
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  font-size: 24px;
 }
 </style>

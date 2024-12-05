@@ -10,7 +10,7 @@
                 : "Hello!"
             }}
           </div>
-          <div class="subtitle">Welcome to your Dashboard..</div>
+          <div class="subtitle">Welcome to your Dashboard.</div>
         </div>
       </div>
     </div>
@@ -120,12 +120,13 @@ export default {
 .title {
   text-align: left;
   font-size: 24px; /* Larger title for better visibility */
+  font-weight: 800;
 }
 
 .subtitle {
   text-align: left;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .avatar {
@@ -277,7 +278,7 @@ h3 {
 .user-details h4 {
   margin: 0;
   font-size: 14px;
-  color: #007bff;
+  color: #000000;
 }
 
 .user-details p {
