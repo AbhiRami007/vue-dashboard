@@ -1,3 +1,6 @@
+<!-- Mobile Web App Assignment 3
+Team : Abhirami Pradeep Susi (200589663), Aditya Chintha (200595829) -->
+
 <template>
   <div :class="!showLimited ? 'space-data-container' : ''">
     <h1>NASA Space</h1>

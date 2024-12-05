@@ -1,3 +1,6 @@
+<!-- Mobile Web App Assignment 3
+Team : Abhirami Pradeep Susi (200589663), Aditya Chintha (200595829) -->
+
 <template>
   <div :class="'data-container'">
     <h1>Data Visualization Dashboard</h1>
