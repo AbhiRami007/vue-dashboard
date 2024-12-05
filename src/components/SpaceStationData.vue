@@ -1,100 +1,107 @@
 <template>
-    <div :class="!showLimited ? 'space-data-container' : ''">
-      <h1>NASA Space</h1>
-  
-      <!-- ISS Position -->
-      <div v-if="loadingISS">
-        <p>Loading ISS position data...</p>
-      </div>
-      <div v-else-if="data">
-        <h3>ISS Position</h3>
-        <div class="widgetcardSpace">
-          <p>Latitude: {{ data.iss_position.latitude }} N</p>
-          <p>Longitude: {{ data.iss_position.longitude }} E</p>
-        </div>
-      </div>
-      <div v-else>
-        <p>Failed to fetch ISS position data...</p>
-      </div>
-  
-      <!-- People in Space -->
-      <div v-if="loadingPeople">
-        <p>Loading people in space data...</p>
-      </div>
-      <div v-else-if="people.length > 0">
-        <h3>People in Space Right Now</h3>
-        <div class="widgetcardSpace">
-          <h1>{{ people.length }}</h1> <!-- Number of people -->
-        </div>
-        <ul>
-          <li v-for="(person, index) in people.slice(0, 10)" :key="index">
-            <p><b>{{ person.name }}</b></p>
-            <p>Craft: {{ person.craft }}</p>
-          </li>
-        </ul>
-      </div>
-      <div v-else>
-        <p>Failed to fetch people in space data...</p>
+  <div :class="!showLimited ? 'space-data-container' : ''">
+    <h1>NASA Space</h1>
+
+    <!-- ISS Position -->
+    <div v-if="loadingISS">
+      <p>Loading ISS position data...</p>
+    </div>
+    <div v-else-if="data">
+      <h3>ISS Position</h3>
+      <div class="widgetcardSpace">
+        <p>Latitude: {{ data.iss_position.latitude }} N</p>
+        <p>Longitude: {{ data.iss_position.longitude }} E</p>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import axios from "axios"; // Importing axios
-  
-  export default {
-    name: "SpaceStationData",
-    props: {
-      showLimited: {
-        type: Boolean,
-        default: false,
-      },
+    <div v-else>
+      <p>Failed to fetch ISS position data...</p>
+    </div>
+
+    <!-- People in Space -->
+    <div v-if="loadingPeople">
+      <p>Loading people in space data...</p>
+    </div>
+    <div v-else-if="people.length > 0">
+      <h3>People in Space Right Now</h3>
+      <div class="widgetcardSpace">
+        <h1>{{ people.length }}</h1>
+        <!-- Number of people -->
+      </div>
+      <ul>
+        <li v-for="(person, index) in people.slice(0, 10)" :key="index">
+          <p>
+            <b>{{ person.name }}</b>
+          </p>
+          <p>Craft: {{ person.craft }}</p>
+        </li>
+      </ul>
+    </div>
+    <div v-else>
+      <p>Failed to fetch people in space data...</p>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios"; // Importing axios
+
+export default {
+  name: "SpaceStationData",
+  props: {
+    showLimited: {
+      type: Boolean,
+      default: false,
     },
-    data() {
-      return {
-        data: null, // Holds ISS position data
-        loadingISS: true, // Loading state for ISS data
-        people: [], // Holds people in space data
-        loadingPeople: true, // Loading state for people data
-      };
+  },
+  data() {
+    return {
+      data: null, // Holds ISS position data
+      loadingISS: true, // Loading state for ISS data
+      people: [], // Holds people in space data
+      loadingPeople: true, // Loading state for people data
+    };
+  },
+  methods: {
+    // Fetch ISS Position Data
+    async fetchSpaceData() {
+      try {
+        const response = await axios.get(
+          "http://api.open-notify.org/iss-now.json"
+        );
+        console.log(response.data);
+        this.data = response.data;
+      } catch (error) {
+        console.error("Error fetching ISS position data:", error);
+      } finally {
+        this.loadingISS = false;
+      }
     },
-    methods: {
-      // Fetch ISS Position Data
-      async fetchSpaceData() {
-        try {
-          const response = await axios.get("http://api.open-notify.org/iss-now.json");
-          console.log(response.data);
-          this.data = response.data;
-        } catch (error) {
-          console.error("Error fetching ISS position data:", error);
-        } finally {
-          this.loadingISS = false;
-        }
-      },
-  
-      // Fetch People in Space Data
-      async fetchPeopleData() {
-        try {
-          const response = await axios.get("http://api.open-notify.org/astros.json");
-          console.log(response.data);
-          this.people = response.data.people;
-        } catch (error) {
-          console.error("Error fetching people in space data:", error);
-        } finally {
-          this.loadingPeople = false;
-        }
-      },
+
+    // Fetch People in Space Data
+    async fetchPeopleData() {
+      try {
+        const response = await axios.get(
+          "http://api.open-notify.org/astros.json"
+        );
+        console.log(response.data);
+        this.people = response.data.people;
+      } catch (error) {
+        console.error("Error fetching people in space data:", error);
+      } finally {
+        this.loadingPeople = false;
+      }
     },
-    mounted() {
-      // Fetch data when the component is mounted
-      this.fetchSpaceData();
-      this.fetchPeopleData();
-    },
-  };
-  </script>
-  
-  <style scoped>
- .dashboard-container {
+  },
+  mounted() {
+    // Fetch data when the component is mounted
+    this.fetchSpaceData();
+    this.fetchPeopleData();
+  },
+};
+</script>
+
+<style scoped>
+.dashboard-container {
   padding: 30px;
 }
 
@@ -321,12 +328,10 @@ h3 {
 .news-data-container,
 .userlist-container-main,
 .space-data-container {
-  margin: 5rem;
   margin-top: 2rem;
   background-color: #f3f3f3;
   padding: 2rem;
-  width: fit-content;
-  margin-left: 20%;
+  width: 100%;
 }
 
 .userlist-container-main,
@@ -422,6 +427,4 @@ h3 {
     font-size: 18px; /* Adjust widget subtitle size */
   }
 }
-
-  </style>
-  
+</style>

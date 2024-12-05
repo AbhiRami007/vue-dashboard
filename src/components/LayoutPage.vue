@@ -4,7 +4,7 @@
     <div class="stickybar">
       <div class="stickybarContent">
         <i
-          class="fa-solid fa-bars stickybar-icon"
+          class="fa-solid fa-bars stickybar-icon2"
           @click="toggleSidebar"
           aria-hidden="true"
         ></i>
@@ -101,7 +101,8 @@ export default {
   left: -250px;
   width: 250px;
   height: 100%;
-  background-color: rgb(253, 253, 253);
+  background-color: #3e3834;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   padding-top: 20px;
   transition: 0.3s ease-in-out;
   z-index: 1000;
@@ -119,12 +120,13 @@ export default {
 }
 
 h1 {
-  font-size: 28px;
-  font-weight: 300;
+  font-size: 24px;
+  font-weight: 500;
+  color: #f60404;
 }
 
 .sidebar-link {
-  color: #0471f6;
+  color: #ffffff;
   padding: 10px 15px;
   text-decoration: none;
   font-size: 18px;
@@ -132,7 +134,7 @@ h1 {
 }
 
 .sidebar-link:hover {
-  background-color: #0471f6;
+  background-color: #5e5e5e;
   color: white;
 }
 
@@ -148,8 +150,8 @@ h1 {
   top: 0;
   width: 100%;
   left: -5px;
-  height: 80px;
-  background-color: #0471f6;
+  height: 70px;
+  background-color: #ffffff;
   color: white;
   padding: 0px 20px;
   z-index: 999;
@@ -162,10 +164,17 @@ h1 {
   align-items: center;
 }
 
+.stickybar-icon2 {
+  font-size: 24px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #f60404;
+}
 .stickybar-icon {
   font-size: 24px;
   margin-right: 10px;
   cursor: pointer;
+  color: #ffffff;
 }
 
 .content {

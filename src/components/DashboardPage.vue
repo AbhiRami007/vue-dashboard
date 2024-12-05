@@ -3,14 +3,14 @@
     <div class="banner">
       <div class="banner-left">
         <div class="bannertext">
-          <h2 class="title">
+          <div class="title">
             {{
               userData
                 ? `Hello, ${userData.firstName} ${userData.lastName}!`
                 : "Hello!"
             }}
-          </h2>
-          <h2 class="subtitle">Welcome to your Dashboard..</h2>
+          </div>
+          <div class="subtitle">Welcome to your Dashboard..</div>
         </div>
       </div>
     </div>
@@ -155,7 +155,8 @@ export default {
 .bannertext {
   display: flex;
   flex-direction: column;
-  margin-left: 3rem;
+  margin-left: 25px;
+  margin-top: 20px;
 }
 
 .banner-left {

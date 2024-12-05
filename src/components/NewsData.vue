@@ -1,77 +1,76 @@
 <template>
-    <div :class="!showLimited && 'news-data-container'">
-      <h1>News</h1>
-      <!-- Displaying News Widget from API -->
-      <p v-if="loading">Loading news data...</p>
-      
-      <!-- Display news items if data is available -->
-      <ul v-else-if="data.length > 0">
-        <li v-for="(newsItem, index) in displayedData" :key="index">
-          <a :href="newsItem.link" target="_blank">{{ newsItem.title }}</a>
-          <p>{{ newsItem.source }}</p>
-        </li>
-      </ul>
-      
-      <!-- Fallback message if no data available -->
-      <p v-else>No news data available.</p>
-    </div>
-  </template>
-  
-  
-  <script>
-  import { ref, onMounted, computed } from "vue";
-  import axios from "axios";
-  
-  export default {
-    name: "NewsData",
-    props: {
-      showLimited: {
-        type: Boolean,
-        default: false,
-      },
+  <div :class="!showLimited && 'news-data-container'">
+    <h1>News</h1>
+    <!-- Displaying News Widget from API -->
+    <p v-if="loading">Loading news data...</p>
+
+    <!-- Display news items if data is available -->
+    <ul v-else-if="data.length > 0">
+      <li v-for="(newsItem, index) in displayedData" :key="index">
+        <a :href="newsItem.link" target="_blank">{{ newsItem.title }}</a>
+        <p>{{ newsItem.source }}</p>
+      </li>
+    </ul>
+
+    <!-- Fallback message if no data available -->
+    <p v-else>No news data available.</p>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted, computed } from "vue";
+import axios from "axios";
+
+export default {
+  name: "NewsData",
+  props: {
+    showLimited: {
+      type: Boolean,
+      default: false,
     },
-    setup(props) {
-      const data = ref([]);
-      const loading = ref(true);
-  
-      // Fetch news data on component mount
-      onMounted(async () => {
-        const fetchNewsData = async () => {
-          const options = {
-            method: "GET",
-            url: "https://ok.surf/api/v1/cors/news-feed", // News API
-          };
-  
-          try {
-            const response = await axios.request(options);
-            console.log(response.data);
-            data.value = response.data.Business || []; // Adjusted to match API response
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          } finally {
-            loading.value = false;
-          }
+  },
+  setup(props) {
+    const data = ref([]);
+    const loading = ref(true);
+
+    // Fetch news data on component mount
+    onMounted(async () => {
+      const fetchNewsData = async () => {
+        const options = {
+          method: "GET",
+          url: "https://ok.surf/api/v1/cors/news-feed", // News API
         };
-  
-        fetchNewsData();
-      });
-  
-      // Limit data to first 10 items if showLimited is true
-      const displayedData = computed(() => {
-        return props.showLimited ? data.value.slice(0, 10) : data.value;
-      });
-  
-      return {
-        data,
-        loading,
-        displayedData,
+
+        try {
+          const response = await axios.request(options);
+          console.log(response.data);
+          data.value = response.data.Business || []; // Adjusted to match API response
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          loading.value = false;
+        }
       };
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .dashboard-container {
+
+      fetchNewsData();
+    });
+
+    // Limit data to first 10 items if showLimited is true
+    const displayedData = computed(() => {
+      return props.showLimited ? data.value.slice(0, 10) : data.value;
+    });
+
+    return {
+      data,
+      loading,
+      displayedData,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.dashboard-container {
   padding: 30px;
 }
 
@@ -296,12 +295,10 @@ h3 {
 }
 
 .news-data-container {
-    margin: 5rem;
   margin-top: 2rem;
   background-color: #f3f3f3;
-  padding: 2rem;
-  width: 50%;
-  margin-left: 20%;
+
+  width: 100%;
 }
 
 .userlist-container-main,
@@ -309,7 +306,7 @@ h3 {
   width: 50%; /* Full width */
 }
 
-.news-data-container > h1{
+.news-data-container > h1 {
   color: #f66e04;
   text-align: center;
 }
@@ -369,7 +366,7 @@ h3 {
     flex-direction: column; /* Stack user profile widget items */
   }
 
-  .news-data-container{
+  .news-data-container {
     width: 90%; /* Adjust container width */
     margin-left: auto; /* Center align */
     margin-right: auto; /* Center align */
@@ -393,6 +390,4 @@ h3 {
     font-size: 18px; /* Adjust widget subtitle size */
   }
 }
-
-  </style>
-  
+</style>

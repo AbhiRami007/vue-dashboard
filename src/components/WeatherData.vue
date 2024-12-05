@@ -208,6 +208,7 @@ export default {
   .weather-container {
     width: 100%; /* Take full width of the screen */
     padding: 1rem;
+    border-radius: 20%;
   }
 
   .weather-head > h1 {
